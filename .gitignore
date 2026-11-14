@@ -13,6 +13,7 @@ instance/
 *.sqlite
 *.sqlite3
 
+.env
 .env.*
 !.env.example
 
