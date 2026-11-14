@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Create account · Marginalia{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+{% block content %}
+  <div class="auth-wrap">
+    <section class="auth-pane">
+      <p class="eyebrow">Get started</p>
+      <h1 class="auth-title">Make a home for your thoughts.</h1>
+      <p class="auth-sub">A quiet place to keep notes, drafts, and half-ideas.</p>
+
+      <form method="post" class="stack">
+        {{ form.hidden_tag() }}
+        <label class="field">
+          <span class="field-label">Username</span>
+          {{ form.username(placeholder="pick a handle") }}
+        </label>
+        <label class="field">
+          <span class="field-label">Email</span>
+          {{ form.email(placeholder="you@example.com") }}
+        </label>
+        <label class="field">
+          <span class="field-label">Password</span>
+          {{ form.password(placeholder="at least 6 characters") }}
+        </label>
+        <label class="field">
+          <span class="field-label">Confirm password</span>
+          {{ form.confirm(placeholder="type it again") }}
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">
+          <ion-icon name="person-add-outline"></ion-icon>
+          Create account
+        </button>
+      </form>
+
+      <p class="auth-foot">
+        Already have an account?
+        <a href="{{ url_for('login') }}">Sign in</a>
+      </p>
+    </section>
+
+    <aside class="auth-art" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <blockquote class="quote">
+        <p>“The scariest moment is always just before you start.”</p>
+        <cite>— Stephen King</cite>
+      </blockquote>
+    </aside>
+  </div>
+{% endblock %}

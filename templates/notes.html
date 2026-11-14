@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}My notes · Marginalia{% endblock %}
+{% block content %}
+  <div class="page-head">
+    <div>
+      <h1>Your notes</h1>
+      <p class="muted">
+        {% if notes %}{{ notes|length }} note{{ '' if notes|length == 1 else 's' }}{% else %}A blank page is a fine place to start.{% endif %}
+      </p>
+    </div>
+    <form method="get" class="search">
+      <ion-icon name="search-outline"></ion-icon>
+      <input type="text" name="q" value="{{ q }}" placeholder="Search your notes" />
+    </form>
+  </div>
+
+  {% if notes %}
+    <ul class="note-grid">
+      {% for n in notes %}
+        <li class="note-card">
+          <div class="note-card-head">
+            <h2><a href="{{ url_for('view_note', note_id=n.id) }}">{{ n.title }}</a></h2>
+            {% if n.is_public %}
+              <span class="pill">
+                <ion-icon name="globe-outline"></ion-icon>
+                Public
+              </span>
+            {% endif %}
+          </div>
+          <p class="note-preview">{{ n.body[:160] }}{% if n.body|length > 160 %}…{% endif %}</p>
+          <div class="note-meta">
+            <span>
+              <ion-icon name="time-outline"></ion-icon>
+              {{ n.updated_at.strftime("%b %d, %Y") }}
+            </span>
+          </div>
+          <div class="note-actions">
+            <a href="{{ url_for('edit_note', note_id=n.id) }}" class="btn btn-ghost btn-sm">
+              <ion-icon name="create-outline"></ion-icon>
+              Edit
+            </a>
+            <form method="post" action="{{ url_for('delete_note', note_id=n.id) }}"
+                  onsubmit="return confirm('Delete this note?')">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button type="submit" class="btn btn-danger btn-sm">
+                <ion-icon name="trash-outline"></ion-icon>
+                Delete
+              </button>
+            </form>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <h2>Nothing here yet</h2>
+      <p>That's fine. Start with a thought you'd like to remember.</p>
+      <a href="{{ url_for('new_note') }}" class="btn btn-primary">
+        <ion-icon name="add-outline"></ion-icon>
+        Write your first note
+      </a>
+    </div>
+  {% endif %}
+{% endblock %}

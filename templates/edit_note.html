@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit note" if note else "New note" }} · Marginalia{% endblock %}
+{% block content %}
+  <div class="page-head">
+    <div>
+      <h1>{{ "Edit note" if note else "New note" }}</h1>
+      <p class="muted">
+        {% if note %}Last saved {{ note.updated_at.strftime("%b %d, %Y · %H:%M") }}{% else %}Say what you want to remember.{% endif %}
+      </p>
+    </div>
+    <a href="{{ url_for('notes') }}" class="btn btn-ghost">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back
+    </a>
+  </div>
+
+  <form method="post" class="editor">
+    {{ form.hidden_tag() }}
+    <label class="field">
+      <span class="field-label">Title</span>
+      {{ form.title(placeholder="Give it a name", class_="title-input") }}
+    </label>
+    <label class="field">
+      <span class="field-label">Body</span>
+      {{ form.body(rows=14, placeholder="Write freely. You can always come back.") }}
+    </label>
+    <label class="check">
+      {{ form.is_public() }}
+      <span>Make this note public — anyone with the link can read it.</span>
+    </label>
+    <div class="editor-actions">
+      <button type="submit" class="btn btn-primary">
+        <ion-icon name="checkmark-outline"></ion-icon>
+        Save note
+      </button>
+      <a href="{{ url_for('notes') }}" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

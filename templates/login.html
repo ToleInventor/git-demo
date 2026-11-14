@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Sign in · Marginalia{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+{% block content %}
+  <div class="auth-wrap">
+    <section class="auth-pane">
+      <p class="eyebrow">Welcome back</p>
+      <h1 class="auth-title">Sign in to your notes.</h1>
+      <p class="auth-sub">Everything you wrote is still where you left it.</p>
+
+      <form method="post" class="stack">
+        {{ form.hidden_tag() }}
+        <label class="field">
+          <span class="field-label">Username</span>
+          {{ form.username(placeholder="your handle") }}
+        </label>
+        <label class="field">
+          <span class="field-label">Password</span>
+          {{ form.password(placeholder="••••••••") }}
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+          Sign in
+        </button>
+      </form>
+
+      <p class="auth-foot">
+        New here?
+        <a href="{{ url_for('register') }}">Create an account</a>
+      </p>
+    </section>
+
+    <aside class="auth-art" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <blockquote class="quote">
+        <p>“I write entirely to find out what I'm thinking.”</p>
+        <cite>— Joan Didion</cite>
+      </blockquote>
+    </aside>
+  </div>
+{% endblock %}
